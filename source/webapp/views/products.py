@@ -1,4 +1,4 @@
-from django.views.generic import  CreateView, DetailView
+from django.views.generic import  CreateView, DetailView, UpdateView
 from webapp.models import Product
 from django.urls import reverse
 from webapp.forms import ProductForm
@@ -17,3 +17,10 @@ class ProductCreate(SuccessDetailUrlMixin, CreateView):
 class ProductView(DetailView):
     template_name = 'product/detail.html'
     model = Product
+    
+
+class ProductUpdateView(SuccessDetailUrlMixin, UpdateView):
+    template_name = 'product/update.html'
+    form_class = ProductForm
+    model = Product
+    context_object_name = 'product'
