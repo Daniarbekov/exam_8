@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title%}Home{% endblock %}
+{% block menu%}
+<li class="nav-item">
+    <a class="nav-link" href="#">Добавить Продукт</a>
+{% endblock %}
+{% block content %}
+<div class="card-box" >
+            <div class="row">
+            {% for product in products %}
+            <div class="card m-3" style="max-width: 500px;">
+                <div class="row g-0">
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{product.name}}</h5>
+                      <p class="card-text">{{product.get_category_display}}</p>
+                      <a href="#"  class='btn btn-secondary'>Подробнее...</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          {% endfor %}
+        </div>
+    </div>
+{% endblock %}

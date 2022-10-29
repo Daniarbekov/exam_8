@@ -12,7 +12,7 @@ class Review(models.Model):
     product = models.ForeignKey(
         verbose_name='Товар',
         to='webapp.Product',
-        related_name='products',
+        related_name='reviews',
         on_delete=models.CASCADE
         )
     text=models.TextField(
