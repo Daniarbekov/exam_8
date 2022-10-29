@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, DetailView, UpdateView
 from accounts.forms import LoginForm
 from django.contrib.auth import get_user_model
-from accounts.forms import UserRegistrationForm
+from accounts.forms import UserRegistrationForm, UserChangeForm, PasswordChangeForm
+from django.urls import reverse
 
 
 class LoginView(TemplateView):
@@ -48,3 +49,31 @@ class RegisterView(CreateView):
         context = {}
         context['form'] = form
         return self.render_to_response(context)
+
+
+class UserView(DetailView):
+    template_name = 'user_detail.html'
+    model = get_user_model()
+    context_object_name = 'user_obj'
+    
+    
+class UserChangeView(UpdateView):
+    model = get_user_model()
+    form_class = UserChangeForm
+    template_name = 'user_change.html'
+    context_object_name = 'user_obj'
+
+    
+    def get_success_url(self):
+        return reverse('account', kwargs={'pk': self.object.pk})
+
+
+class UserPasswordChangeView(UpdateView):
+
+    model = get_user_model()
+    template_name = 'password_change.html'
+    form_class = PasswordChangeForm
+    context_object_name = 'user_obj'
+
+    def get_success_url(self):
+        return reverse('login')

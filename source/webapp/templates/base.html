@@ -26,6 +26,8 @@
                 {% block menu %} {% endblock %}
                 {% if user.is_authenticated %}
                 <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account' request.user.id%}">Личная страница</a>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
                 {% else %}
                 <li class="nav-item">
