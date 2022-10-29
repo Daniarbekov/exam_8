@@ -24,9 +24,15 @@
               <p>Средняя оценка: 0 </p>
               {% endif %}
             <div class="task-links">
+            {% if user.is_authenticated%}
+                {% if perms.webapp.change_review or review.author == request.user %}  
                 <a href="{% url 'product_update' product.pk %}" class="btn btn-secondary">Редактировать</a>
+                {% endif %}
+                {% if perms.webapp.change_review or review.author == request.user %}
                 <a href="{% url 'delete_product' product.pk %}"  class="btn btn-secondary">Удалить</a>
+                {% endif %}
                 <a href="{% url 'add_review' product.pk %}"  class="btn btn-secondary">Добавить отзыв</a>
+            {% endif %}
             </div>
             </div>
           </div>
@@ -38,9 +44,15 @@
               {% for review in product.reviews.all %}
                 <a href="{% url 'account' review.author.pk %}">{{review.author.username}} | {{review.author.email}}</a>
                 <p>{{review.text}}</p>
-                <p>Оценка {{review.rating}}</p>     
-                <a href="{% url 'update_review' review.pk %}"  class="btn btn-secondary">Редактировать отзыв</a> 
-                <a href="{% url 'delete_review' review.pk %}"  class="btn btn-secondary">Удалить</a> 
+                <p>Оценка {{review.rating}}</p>
+                
+                {% if perms.webapp.change_review or review.author == request.user %}     
+                <p><a href="{% url 'update_review' review.pk %}"  class="btn btn-secondary">Редактировать отзыв</a></p>
+                {% endif %}
+                {% if perms.webapp.delete_review or review.author == request.user %}     
+                <p><a href="{% url 'delete_review' review.pk %}"  class="btn btn-secondary">Удалить</a></p>
+                <hr>
+                {% endif %}
               {% empty %}
               <p>Нет отзывов</p>
             {% endfor %}

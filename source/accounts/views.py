@@ -5,7 +5,7 @@ from accounts.forms import LoginForm
 from django.contrib.auth import get_user_model
 from accounts.forms import UserRegistrationForm, UserChangeForm, PasswordChangeForm
 from django.urls import reverse
-
+from django.contrib.auth.mixins import  UserPassesTestMixin
 
 class LoginView(TemplateView):
     template_name = 'login.html'
@@ -57,7 +57,7 @@ class UserView(DetailView):
     context_object_name = 'user_obj'
     
     
-class UserChangeView(UpdateView):
+class UserChangeView(UserPassesTestMixin, UpdateView):
     model = get_user_model()
     form_class = UserChangeForm
     template_name = 'user_change.html'
@@ -66,10 +66,14 @@ class UserChangeView(UpdateView):
     
     def get_success_url(self):
         return reverse('account', kwargs={'pk': self.object.pk})
+    
+    def test_func(self):
+        return self.get_object().pk == self.request.user.pk 
+    
+    
 
 
-class UserPasswordChangeView(UpdateView):
-
+class UserPasswordChangeView(UserPassesTestMixin, UpdateView):
     model = get_user_model()
     template_name = 'password_change.html'
     form_class = PasswordChangeForm
@@ -77,3 +81,6 @@ class UserPasswordChangeView(UpdateView):
 
     def get_success_url(self):
         return reverse('login')
+    
+    def test_func(self):
+        return self.get_object().pk == self.request.user.pk 

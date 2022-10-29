@@ -15,6 +15,7 @@ class LoginForm(forms.Form):
         user = get_user_model().objects.get(username=username)
         if user and not user.check_password(password):
             raise forms.ValidationError('Неверный пароль!')
+    
 
 
 
@@ -38,6 +39,13 @@ class UserRegistrationForm(forms.ModelForm):
         if len(email) == 1:
             raise forms.ValidationError('Поле email не может быть пустым')
         return email
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
 
 
 class UserChangeForm(forms.ModelForm):

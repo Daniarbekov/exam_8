@@ -7,20 +7,24 @@
           <p>Имя: {{user_obj.first_name}}</p>
           <p>Фамилия: {{user_obj.last_name}}</p>
           <p>Почта: {{user_obj.email}}</p>
+          {% if user_obj == request.user %}
         <div class="links">
             <a href="{% url 'user_update' user_obj.pk %}" class="btn btn-secondary">Редактировать</a>
             <a href="{% url 'password_change' user_obj.pk %}" class="btn btn-secondary">Смена пароля</a>
         </div>
+        {% endif %}
         </div>
       </div>
       <div class="reviews-list">
         <h1> Отзывы пользователя </h1>
         <div class="row">
-            {% for review in user.reviews.all %}
+            {% for review in user_obj.reviews.all %}
               <p>{{review.text}}</p>
-              <p>Оценка {{review.rating}}</p>     
-              <a href="{% url 'update_review' review.pk %}"  class="btn btn-secondary">Редактировать отзыв</a> 
-              <a href="{% url 'delete_review' review.pk %}"  class="btn btn-secondary">Удалить</a> 
+              <p>Оценка {{review.rating}}</p> 
+              {% if user_obj == request.user %}  
+              <p><a href="{% url 'update_review' review.pk %}"  class="btn btn-secondary">Редактировать отзыв</a><p>
+              <p><a href="{% url 'delete_review' review.pk %}"  class="btn btn-secondary">Удалить</a></p>
+              {% endif %}
             {% empty %}
             <p>Нет отзывов</p>
           {% endfor %}
