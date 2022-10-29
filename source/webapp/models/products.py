@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 
 
 class CategoryChoices(models.TextChoices):
@@ -34,3 +35,6 @@ class Product(models.Model):
 
     def __str__(self):
           return f"{self.name}"
+    
+    def avg_ratings(self):
+        return self.reviews.aggregate(Avg('rating'))

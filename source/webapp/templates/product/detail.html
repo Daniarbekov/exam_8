@@ -18,6 +18,11 @@
               {%if product.description%}
                 <p>Описание: {{product.description}}</p>
               {% endif %}
+              {% if product.avg_ratings.rating__avg%}
+              <p>Средняя оценка: {{product.avg_ratings.rating__avg}}</p>
+              {% else %}
+              <p>Средняя оценка: 0 </p>
+              {% endif %}
             <div class="task-links">
                 <a href="{% url 'product_update' product.pk %}" class="btn btn-secondary">Редактировать</a>
                 <a href="{% url 'delete_product' product.pk %}"  class="btn btn-secondary">Удалить</a>
