@@ -21,9 +21,24 @@
             <div class="task-links">
                 <a href="{% url 'product_update' product.pk %}" class="btn btn-secondary">Редактировать</a>
                 <a href="{% url 'delete_product' product.pk %}"  class="btn btn-secondary">Удалить</a>
+                <a href="{% url 'add_review' product.pk %}"  class="btn btn-secondary">Добавить отзыв</a>
             </div>
             </div>
           </div>
         </div>
+      </div>
+      <h5> Отзывы </h5>
+      <div class="reviews-list">
+          <div class="row">
+              {% for review in product.reviews.all %}
+                <p>{{review.author.username}} | {{review.author.email}}</p>
+                <p>{{review.text}}</p>
+                <p>Оценка {{review.rating}}</p>     
+                <a href="{% url 'update_review' review.pk %}"  class="btn btn-secondary">Редактировать отзыв</a>   
+              {% empty %}
+              <p>Нет отзывов</p>
+            {% endfor %}
+          </div>
+      </div>
       </div>
     {% endblock %}
