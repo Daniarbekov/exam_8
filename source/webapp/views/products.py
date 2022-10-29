@@ -1,7 +1,8 @@
-from django.views.generic import  CreateView, DetailView, UpdateView
+from django.views.generic import  CreateView, DetailView, UpdateView, DeleteView
 from webapp.models import Product
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from webapp.forms import ProductForm
+
 
 class SuccessDetailUrlMixin:
     def get_success_url(self):
@@ -24,3 +25,9 @@ class ProductUpdateView(SuccessDetailUrlMixin, UpdateView):
     form_class = ProductForm
     model = Product
     context_object_name = 'product'
+
+
+class ProductDeleteView(DeleteView):
+    template_name = 'product/confirm_delete.html'
+    model = Product
+    success_url = reverse_lazy('index')
