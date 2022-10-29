@@ -29,6 +29,8 @@
                     <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
                 {% else %}
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Войти</a>
                 {% endif %}
             </ul>
