@@ -3,7 +3,7 @@ from django.views.generic import  CreateView, UpdateView, DeleteView
 from webapp.forms import ReviewForm
 from webapp.models import Review, Product
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 
 class ReviewCreate(CreateView):
@@ -25,6 +25,14 @@ class ReviewUpdateView(UpdateView):
     model = Review
     template_name = 'review/update.html'
     form_class = ReviewForm
+    
+    def get_success_url(self):
+        return reverse('product_detail', kwargs={'pk': self.get_object().product.pk})
+
+
+class ReviewDeleteView(DeleteView):
+    template_name = 'review/delete_confirm.html'
+    model = Review
     
     def get_success_url(self):
         return reverse('product_detail', kwargs={'pk': self.get_object().product.pk})

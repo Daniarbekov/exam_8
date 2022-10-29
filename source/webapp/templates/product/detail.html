@@ -34,7 +34,8 @@
                 <p>{{review.author.username}} | {{review.author.email}}</p>
                 <p>{{review.text}}</p>
                 <p>Оценка {{review.rating}}</p>     
-                <a href="{% url 'update_review' review.pk %}"  class="btn btn-secondary">Редактировать отзыв</a>   
+                <a href="{% url 'update_review' review.pk %}"  class="btn btn-secondary">Редактировать отзыв</a> 
+                <a href="{% url 'delete_review' review.pk %}"  class="btn btn-secondary">Удалить</a> 
               {% empty %}
               <p>Нет отзывов</p>
             {% endfor %}
