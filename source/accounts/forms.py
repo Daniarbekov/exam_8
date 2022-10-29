@@ -35,8 +35,9 @@ class UserRegistrationForm(forms.ModelForm):
     
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if len(email)<1:
+        if len(email) == 1:
             raise forms.ValidationError('Поле email не может быть пустым')
+        return email
 
 
 class UserChangeForm(forms.ModelForm):
