@@ -14,7 +14,7 @@
                     <div class="card-body">
                       <h5 class="card-title">{{product.name}}</h5>
                       <p class="card-text">{{product.get_category_display}}</p>
-                      <a href="#"  class='btn btn-secondary'>Подробнее...</a>
+                      <a href="{% url 'product_detail' product.pk %}"  class='btn btn-secondary'>Подробнее...</a>
                     </div>
                   </div>
                 </div>

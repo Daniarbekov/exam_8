@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% block title%}Detail{% endblock%}
+    {% block content%}
+    <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4">
+            {% if product.image %}
+                <img src="{{product.image.url}}" class="img-fluid rounded-start" alt="img">
+            {% else %}
+                <img src="https://xn--90aha1bhcc.xn--p1ai/img/placeholder.png" class="img-fluid rounded-start" alt="img">
+            {% endif %}
+            </div>
+          <div class="col">
+            <div class="card-body">
+              <h5 class="card-title">{{product.name}}</h5>
+              <p>Категория: {{product.get_category_display}}</p>
+              {%if product.description%}
+                <p>Описание: {{product.description}}</p>
+              {% endif %}
+            <div class="task-links">
+                <a href="#" class="btn btn-secondary">Редактировать</a>
+                <a href="#"  class="btn btn-secondary">Удалить</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
